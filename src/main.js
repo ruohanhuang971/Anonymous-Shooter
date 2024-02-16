@@ -1,17 +1,30 @@
 import * as THREE from "three";
-import Game from "./game.js"
+// import Game from "./game.js"
+import BlasterScene from "./BlasterScene.js";
+
+const width = window.innerWidth;
+const height = window.innerHeight;
 
 window.onload = () => {
     const renderer = new THREE.WebGLRenderer({
         canvas: document.getElementById('app')
     });
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(width, height);
+    
+    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+    camera.position.z = 5;
 
-    const game = new Game();
+    const scene = new BlasterScene();
+    scene.initialize();
+
+    // renderer.render(scene, camera);
+    
+
+    // const game = new Game();
     function animate() {
         requestAnimationFrame(animate);
-        game.update();
-        renderer.render(game.scene, game.camera);
+        scene.update();
+        renderer.render(scene, camera);
     }
     animate();
 }
